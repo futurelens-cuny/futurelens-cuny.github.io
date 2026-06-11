@@ -32,18 +32,7 @@
       overflow-x: hidden;
     }
 
-    /* ── Grid overlay ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-    }
+    /* grid removed */
 
     /* ── Nav ── */
     nav {
@@ -106,9 +95,11 @@
 
     .hero-inner {
       padding: 100px 0 80px;
+      text-align: center;
     }
 
     .hero-eyebrow {
+      justify-content: center;
       font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.2em;
@@ -147,7 +138,7 @@
       font-size: 18px;
       color: var(--muted);
       max-width: 520px;
-      margin-bottom: 48px;
+      margin: 0 auto 48px;
       line-height: 1.7;
     }
 
@@ -445,8 +436,10 @@
 <section id="hero">
   <div class="container">
     <div class="hero-inner">
+      <div style="text-align:center; margin-bottom: 48px;">
+        <img src="sticker.jpeg" alt="FutureLens Logo" style="width:280px; height:280px; object-fit:contain;"/>
+      </div>
       <div class="hero-eyebrow">Science collaboration group</div>
-      <img src="logo.jpeg" alt="FutureLens Logo" style="width:140px; height:140px; object-fit:contain; margin-bottom:32px; opacity:0.9;"/>
       <h1>
         Seeing what<br>
         <span class="accent-line">comes next.</span>
