@@ -3,415 +3,307 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FutureLens — Science Collaboration</title>
+  <title>FutureLens — Decoding the Universe's Tangled Signals</title>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #000000;
-      --bg2:      #080808;
-      --bg3:      #101010;
-      --border:   #222222;
-      --accent:   #ffffff;
-      --accent2:  #aaaaaa;
-      --text:     #ffffff;
-      --muted:    #666666;
-      --mono:     'Space Mono', monospace;
-      --sans:     'Exo 2', sans-serif;
+      --bg:     #000000;
+      --bg2:    #080808;
+      --bg3:    #101010;
+      --border: #1e1e1e;
+      --accent: #ffffff;
+      --muted:  #555555;
+      --mid:    #888888;
+      --mono:   'Space Mono', monospace;
+      --sans:   'Exo 2', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--accent);
       font-family: var(--sans);
       font-size: 16px;
       line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* grid removed */
+    @keyframes scanline {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+    .scanline {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(transparent, rgba(255,255,255,0.03), transparent);
+      animation: scanline 10s linear infinite;
+      pointer-events: none; z-index: 0;
+    }
 
-    /* ── Nav ── */
+    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 60px;
-      background: rgba(8,12,16,0.85);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 60px;
+      background: rgba(0,0,0,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-
     .nav-logo {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 200;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
+      font-family: var(--sans); font-size: 12px; font-weight: 200;
+      letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
     }
-    .nav-logo span { color: var(--muted); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-    }
+    nav ul { list-style: none; display: flex; gap: 36px; }
     nav a {
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
       transition: color 0.2s;
     }
     nav a:hover { color: var(--accent); }
 
-    /* ── Sections ── */
     section { position: relative; z-index: 1; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 40px; }
 
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 40px;
+    .section-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 52px;
+    }
+    .section-tag {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    }
+    .section-rule { flex: 1; height: 1px; background: var(--border); }
+
+    h2 {
+      font-family: var(--sans); font-size: clamp(22px, 3vw, 32px);
+      font-weight: 200; letter-spacing: 0.12em; text-transform: uppercase;
+      line-height: 1.25; margin-bottom: 16px;
     }
 
-    /* ── Hero ── */
+    /* HERO */
     #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 60px;
+      min-height: 100vh; display: flex; align-items: center; padding-top: 60px;
     }
+    .hero-inner { width: 100%; padding: 80px 0; text-align: center; }
 
-    .hero-inner {
-      padding: 100px 0 80px;
-      text-align: center;
+    .hero-logo {
+      width: 200px; height: 200px; object-fit: contain;
+      border-radius: 50%; margin-bottom: 44px;
     }
 
     .hero-eyebrow {
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 32px;
-      height: 1px;
-      background: var(--accent);
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
     }
 
     h1 {
-      font-family: var(--sans);
-      font-size: clamp(44px, 7vw, 82px);
-      font-weight: 100;
-      line-height: 1.05;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
+      font-family: var(--sans); font-size: clamp(36px, 5.5vw, 68px);
+      font-weight: 100; letter-spacing: 0.18em; text-transform: uppercase;
+      line-height: 1.1; margin-bottom: 20px;
     }
-
-    h1 .accent-line {
-      display: block;
-      color: #ffffff;
-      opacity: 0.5;
+    .hero-tagline {
+      font-family: var(--sans); font-size: clamp(14px, 2vw, 18px);
+      font-weight: 200; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 32px;
     }
 
     .hero-sub {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto 48px;
-      line-height: 1.7;
+      font-size: 15px; color: var(--mid); max-width: 560px;
+      margin: 0 auto 40px; line-height: 1.85; font-weight: 300;
     }
+
+    .hero-funded {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      border: 1px solid var(--border); padding: 8px 18px;
+      margin-bottom: 36px; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .hero-funded:hover { border-color: #444; color: var(--mid); }
 
     .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ffffff;
-      border: 1px solid #ffffff;
-      padding: 14px 28px;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--accent); padding: 12px 28px;
+      text-decoration: none; transition: background 0.2s, color 0.2s;
     }
-    .hero-cta:hover {
-      background: #ffffff;
-      color: #000000;
-    }
+    .hero-cta:hover { background: var(--accent); color: var(--bg); }
 
-    /* ── Section header ── */
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 56px;
-    }
-    .section-tag {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    h2 {
-      font-family: var(--sans);
-      font-size: clamp(26px, 4vw, 38px);
-      font-weight: 200;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    /* ── About ── */
-    #about {
-      padding: 120px 0;
-      border-top: 1px solid var(--border);
-    }
-
+    /* ABOUT */
+    #about { padding: 120px 0; border-top: 1px solid var(--border); }
     .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: start;
     }
-
-    .about-body {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.8;
-    }
-    .about-body p + p { margin-top: 16px; }
+    .about-body { color: var(--mid); font-size: 15px; line-height: 1.9; font-weight: 300; }
+    .about-body p + p { margin-top: 18px; }
 
     .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
     }
-    .stat {
-      background: var(--bg2);
-      padding: 28px 24px;
-    }
+    .stat { background: var(--bg2); padding: 28px 22px; }
     .stat-num {
-      font-family: var(--mono);
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 6px;
+      font-family: var(--mono); font-size: 30px; font-weight: 700;
+      color: var(--accent); line-height: 1; margin-bottom: 6px;
     }
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
+    .stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
 
-    /* ── Team ── */
-    #team {
-      padding: 120px 0;
-      border-top: 1px solid var(--border);
-    }
+    /* TEAM */
+    #team { padding: 120px 0; border-top: 1px solid var(--border); }
 
     .team-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
     }
-
     .member {
-      background: var(--bg2);
-      padding: 32px 28px;
-      transition: background 0.2s;
-      position: relative;
-      overflow: hidden;
+      background: var(--bg2); padding: 26px 22px;
+      transition: background 0.2s; position: relative; overflow: hidden;
     }
     .member::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 2px; height: 0;
-      background: var(--accent);
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 1px; height: 0; background: var(--accent);
       transition: height 0.25s ease;
     }
     .member:hover { background: var(--bg3); }
     .member:hover::after { height: 100%; }
 
     .member-avatar {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #222222;
-      border: 1px solid #444444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 20px;
+      width: 52px; height: 52px; border-radius: 50%; overflow: hidden;
+      background: #111; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 12px; color: var(--muted);
+      margin-bottom: 14px; flex-shrink: 0;
     }
+    .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
     .member-name {
-      font-family: var(--mono);
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text);
+      font-family: var(--sans); font-size: 13px; font-weight: 500;
+      letter-spacing: 0.03em; margin-bottom: 3px; color: var(--accent);
     }
     .member-role {
-      font-size: 12px;
-      color: var(--accent);
-      font-family: var(--mono);
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
     }
-    .member-bio {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
+    .member-inst { font-size: 11px; color: #3a3a3a; line-height: 1.4; }
+    .member-hub {
+      display: inline-block; margin-top: 8px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #333;
+    }
+    .member-link {
+      display: inline-block; margin-top: 8px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .member-link:hover { color: var(--accent); border-color: #555; }
+
+    .member.pi { background: #0a0a0a; }
+    .member.pi .member-name { font-size: 14px; font-weight: 600; }
+
+    .alumni-row {
+      border: 1px solid var(--border); border-top: none;
+      padding: 18px 22px; background: var(--bg);
+      display: flex; align-items: center; gap: 20px;
+    }
+    .alumni-title {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    }
+    .alumni-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .alumni-tag {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em;
+      color: #333; border: 1px solid #1a1a1a; padding: 3px 10px;
     }
 
-    /* ── Projects ── */
-    #projects {
-      padding: 120px 0;
-      border-top: 1px solid var(--border);
-    }
+    /* PAPERS */
+    #papers { padding: 120px 0; border-top: 1px solid var(--border); }
 
-    .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+    .papers-list {
+      display: flex; flex-direction: column;
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
     }
+    .paper {
+      background: var(--bg2); padding: 30px 36px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 32px; align-items: start; transition: background 0.2s;
+    }
+    .paper:hover { background: var(--bg3); }
 
-    .project {
-      background: var(--bg2);
-      padding: 36px 40px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 32px;
-      align-items: center;
-      transition: background 0.2s;
-      cursor: default;
+    .paper-journal {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
     }
-    .project:hover { background: var(--bg3); }
+    .paper-title {
+      font-family: var(--sans); font-size: 15px; font-weight: 400;
+      color: var(--accent); margin-bottom: 9px; line-height: 1.45;
+    }
+    .paper-authors {
+      font-size: 12px; color: var(--muted); line-height: 1.6; font-weight: 300;
+    }
+    .paper-authors strong { color: #888; font-weight: 500; }
 
-    .project-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
+    .paper-meta {
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 8px; flex-shrink: 0;
     }
-    .project-name {
-      font-family: var(--mono);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
+    .paper-year { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .paper-citations { font-family: var(--mono); font-size: 9px; color: #333; letter-spacing: 0.06em; }
+    .paper-link {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--mid);
+      border: 1px solid var(--border); padding: 5px 12px;
+      text-decoration: none; white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .project-desc {
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 600px;
-      line-height: 1.6;
-    }
-    .project-status {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border: 1px solid;
-      white-space: nowrap;
-    }
-    .status-active  { color: #ffffff; border-color: #ffffff; }
-    .status-ongoing { color: #aaaaaa; border-color: #aaaaaa; }
-    .status-upcoming{ color: #444444; border-color: #444444; }
+    .paper-link:hover { border-color: #555; color: var(--accent); }
 
-    /* ── Footer ── */
+    /* FOOTER */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      position: relative;
-      z-index: 1;
+      border-top: 1px solid var(--border); padding: 36px 0;
+      position: relative; z-index: 1;
     }
     .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
     }
     .footer-logo {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
+      font-family: var(--sans); font-size: 11px; font-weight: 200;
+      letter-spacing: 0.32em; text-transform: uppercase; color: var(--mid);
     }
-    .footer-copy {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
+    .footer-right {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
     }
+    .footer-funded {
+      font-family: var(--mono); font-size: 9px; color: var(--muted);
+      letter-spacing: 0.08em; text-decoration: none;
+    }
+    .footer-funded:hover { color: var(--mid); }
+    .footer-copy { font-family: var(--mono); font-size: 9px; color: #2a2a2a; letter-spacing: 0.06em; }
 
-    /* ── Scan line animation ── */
-    @keyframes scanline {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100vh); }
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .team-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    .scanline {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(transparent, rgba(255,255,255,0.04), transparent);
-      animation: scanline 8s linear infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── Responsive ── */
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
-      nav ul { gap: 20px; }
+      nav ul { gap: 18px; }
       .container { padding: 0 20px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .team-grid { grid-template-columns: 1fr; }
-      .project { grid-template-columns: 1fr; gap: 16px; }
-      .footer-inner { flex-direction: column; gap: 12px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .paper { grid-template-columns: 1fr; gap: 14px; }
+      .paper-meta { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-right { align-items: center; }
     }
-
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr 1fr; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .scanline { display: none; }
       * { transition: none !important; animation: none !important; }
@@ -424,11 +316,11 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">FUTURELENS</a>
+  <a href="#hero" class="nav-logo">FutureLens</a>
   <ul>
     <li><a href="#about">About</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#projects">Projects</a></li>
+    <li><a href="#team">People</a></li>
+    <li><a href="#papers">Research</a></li>
   </ul>
 </nav>
 
@@ -436,17 +328,11 @@
 <section id="hero">
   <div class="container">
     <div class="hero-inner">
-      <div style="text-align:center; margin-bottom: 48px;">
-        <img src="logo.jpeg" alt="FutureLens Logo" style="width:280px; height:280px; object-fit:contain; border-radius:50%;"/>
-      </div>
-      <div class="hero-eyebrow">Science collaboration group</div>
-      <h1>
-        Seeing what<br>
-        <span class="accent-line">comes next.</span>
-      </h1>
+      <img src="logo.jpeg" alt="FutureLens Logo" class="hero-logo"/>
+      <h1>FutureLens</h1>
+      <div class="hero-tagline">Seeing what comes next.</div>
       <p class="hero-sub">
-        FutureLens is a collaborative science group exploring the intersection
-        of emerging technology, research, and ideas that shape tomorrow.
+        FutureLens is a research collaboration studying the universe in gravitational lensing systems using machine learning.
       </p>
       <a href="#about" class="hero-cta">Explore our work →</a>
     </div>
@@ -462,29 +348,29 @@
     </div>
     <div class="about-grid">
       <div>
-        <h2>We study the future<br>before it arrives.</h2>
+        <h2>The information is there.<br>We figure out how to pull it out.</h2>
         <div class="about-body">
-          <p>FutureLens is a student-led science collaboration group committed to exploring emerging fields — from biotechnology and AI to environmental science and beyond.</p>
-          <p>We believe science is best done together. Our members come from different disciplines, bringing unique perspectives to every question we investigate.</p>
-          <p>Through research, experiments, and open discussion, we work to understand the forces shaping our world — and imagine better ones.</p>
+          <p>Somewhere in the distant universe, a supermassive black hole blazes with enough energy to outshine its entire host galaxy. Between that quasar and Earth, a massive galaxy bends spacetime — a gravitational lens that splits the quasar's light into multiple images, each flickering with signals about dark matter, black hole structure, and the expansion history of the universe.</p>
+          <p>The problem is extracting it. FutureLens is a Schmidt Sciences-funded collaboration building the machine learning infrastructure to decode these tangled signals at scale — ahead of the Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST).</p>
+          <p>Our team spans New York City and Montréal, combining expertise in astrophysics, Bayesian inference, simulation-based inference, and deep learning.</p>
         </div>
       </div>
       <div class="about-stats">
         <div class="stat">
-          <div class="stat-num">12</div>
-          <div class="stat-label">Active members</div>
+          <div class="stat-num">11</div>
+          <div class="stat-label">Researchers</div>
         </div>
         <div class="stat">
-          <div class="stat-num">4</div>
-          <div class="stat-label">Ongoing projects</div>
+          <div class="stat-num">2</div>
+          <div class="stat-label">Cities</div>
         </div>
         <div class="stat">
           <div class="stat-num">3</div>
-          <div class="stat-label">Fields of study</div>
+          <div class="stat-label">Papers (2025)</div>
         </div>
         <div class="stat">
-          <div class="stat-num">2024</div>
-          <div class="stat-label">Founded</div>
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Citations</div>
         </div>
       </div>
     </div>
@@ -495,92 +381,165 @@
 <section id="team">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Team</span>
+      <span class="section-tag">People</span>
       <div class="section-rule"></div>
     </div>
-    <h2 style="margin-bottom:40px">The people behind the lens.</h2>
+    <h2 style="margin-bottom:48px">The collaboration.</h2>
+
     <div class="team-grid">
-      <div class="member">
-        <div class="member-avatar">AK</div>
-        <div class="member-name">Alex Kim</div>
-        <div class="member-role">Lead Researcher</div>
-        <div class="member-bio">Focused on computational biology and data-driven approaches to understanding complex systems.</div>
+
+      <div class="member pi">
+        <div class="member-avatar">MO</div>
+        <div class="member-name">Matt O'Dowd</div>
+        <div class="member-role">PI · Professor</div>
+        <div class="member-inst">CUNY / Lehman College &amp; AMNH</div>
+        <span class="member-hub">New York</span>
       </div>
+
       <div class="member">
-        <div class="member-avatar">SR</div>
-        <div class="member-name">Sofia Reyes</div>
-        <div class="member-role">Environmental Science</div>
-        <div class="member-bio">Studies climate feedback loops and develops models for ecosystem resilience under change.</div>
+        <div class="member-avatar">QM</div>
+        <div class="member-name">Quinn Minor</div>
+        <div class="member-role">Collaborator</div>
+        <div class="member-inst">CUNY</div>
+        <span class="member-hub">New York</span>
       </div>
+
       <div class="member">
-        <div class="member-avatar">JT</div>
-        <div class="member-name">James Tran</div>
-        <div class="member-role">AI & Systems</div>
-        <div class="member-bio">Explores how machine learning can accelerate scientific discovery across disciplines.</div>
+        <div class="member-avatar">JC</div>
+        <div class="member-name">James H.-H. Chan</div>
+        <div class="member-role">Postdoc Fellow</div>
+        <div class="member-inst">City University of New York</div>
+        <span class="member-hub">New York</span>
       </div>
+
       <div class="member">
-        <div class="member-avatar">MP</div>
-        <div class="member-name">Maya Patel</div>
-        <div class="member-role">Biochemistry</div>
-        <div class="member-bio">Investigates molecular mechanisms with a focus on synthetic biology applications.</div>
+        <div class="member-avatar">JF</div>
+        <div class="member-name">Josh Fagin</div>
+        <div class="member-role">Postdoc</div>
+        <div class="member-inst">CUNY</div>
+        <span class="member-hub">New York</span>
       </div>
+
       <div class="member">
-        <div class="member-avatar">LN</div>
-        <div class="member-name">Luca Neri</div>
-        <div class="member-role">Physics & Engineering</div>
-        <div class="member-bio">Bridges theoretical physics and practical engineering to prototype new measurement tools.</div>
+        <div class="member-avatar">SM</div>
+        <div class="member-name">Sophia Miskiewicz</div>
+        <div class="member-role">PhD Student</div>
+        <div class="member-inst">CUNY</div>
+        <span class="member-hub">New York</span>
       </div>
+
       <div class="member">
-        <div class="member-avatar">ZW</div>
-        <div class="member-name">Zara Wu</div>
-        <div class="member-role">Science Communication</div>
-        <div class="member-bio">Translates complex research into accessible stories. Runs the group's publications and outreach.</div>
+        <div class="member-avatar">HB</div>
+        <div class="member-name">Henry Best</div>
+        <div class="member-role">Postdoc Fellow</div>
+        <div class="member-inst">Stony Brook University</div>
+        <span class="member-hub">New York</span>
+      </div>
+
+      <div class="member">
+        <div class="member-avatar">VV</div>
+        <div class="member-name">Vishal Verma</div>
+        <div class="member-role">Researcher</div>
+        <div class="member-inst">CUNY</div>
+        <span class="member-hub">New York</span>
+      </div>
+
+      <div class="member pi">
+        <div class="member-avatar">YH</div>
+        <div class="member-name">Yashar Hezaveh</div>
+        <div class="member-role">PI · Associate Professor</div>
+        <div class="member-inst">Université de Montréal · Ciela Institute</div>
+        <span class="member-hub">Montréal</span>
+        <br/><a href="https://yasharhezaveh.me" class="member-link" target="_blank">website →</a>
+      </div>
+
+      <div class="member">
+        <div class="member-avatar">LL</div>
+        <div class="member-name">Laurence Perreault Levasseur</div>
+        <div class="member-role">Associate Professor</div>
+        <div class="member-inst">Université de Montréal · Ciela Institute</div>
+        <span class="member-hub">Montréal</span>
+      </div>
+
+      <div class="member">
+        <div class="member-avatar">CS</div>
+        <div class="member-name">Connor Stone</div>
+        <div class="member-role">Researcher</div>
+        <div class="member-inst">Université de Montréal → U of Toronto</div>
+        <span class="member-hub">Montréal</span>
+      </div>
+
+    </div>
+
+    <div class="alumni-row">
+      <div class="alumni-title">Alumni</div>
+      <div class="alumni-list">
+        <span class="alumni-tag">Bridget Ierace</span>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
+<!-- PAPERS -->
+<section id="papers">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Projects</span>
+      <span class="section-tag">Research</span>
       <div class="section-rule"></div>
     </div>
-    <h2 style="margin-bottom:40px">What we're working on.</h2>
-    <div class="projects-list">
-      <div class="project">
+    <h2 style="margin-bottom:8px">Selected publications.</h2>
+    <p style="color:var(--muted); font-size:13px; font-family:var(--mono); letter-spacing:0.06em; margin-bottom:48px;">
+      Studying black hole accretion, quasar variability, and disk structure via gravitational lensing and machine learning.
+    </p>
+
+    <div class="papers-list">
+
+      <div class="paper">
         <div>
-          <div class="project-tag">Computational biology</div>
-          <div class="project-name">Project Helix</div>
-          <div class="project-desc">Building a machine-learning pipeline to identify patterns in protein folding data, with applications in drug target prediction.</div>
+          <div class="paper-journal">Astrophysical Journal · 978, 54 · 2025ApJ...978...54C</div>
+          <div class="paper-title">Reverberation Mapping of Lamppost and Wind Structures in Accretion Thin Disks</div>
+          <div class="paper-authors">
+            <strong>Chan, J. H.-H.</strong>, Fagin, J., Best, H., O'Dowd, M. J.
+          </div>
         </div>
-        <div class="project-status status-active">Active</div>
+        <div class="paper-meta">
+          <span class="paper-year">2025</span>
+          <span class="paper-citations">3 citations</span>
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...978...54C" target="_blank">ADS →</a>
+        </div>
       </div>
-      <div class="project">
+
+      <div class="paper">
         <div>
-          <div class="project-tag">Environmental science</div>
-          <div class="project-name">Atlas of Change</div>
-          <div class="project-desc">Mapping local ecosystem shifts using open satellite data and community sensor networks to track environmental baselines over time.</div>
+          <div class="paper-journal">Astrophysical Journal · 988, 59 · 2025ApJ...988...59F</div>
+          <div class="paper-title">Joint Modeling of Quasar Variability and Accretion Disk Reprocessing Using Latent Stochastic Differential Equations</div>
+          <div class="paper-authors">
+            Fagin, J., <strong>Chan, J. H.-H.</strong>, Best, H., O'Dowd, M., Ford, K. E. S., Graham, M. J., Park, J. W., Villar, V. A.
+          </div>
         </div>
-        <div class="project-status status-ongoing">Ongoing</div>
+        <div class="paper-meta">
+          <span class="paper-year">2025</span>
+          <span class="paper-citations">6 citations</span>
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...988...59F" target="_blank">ADS →</a>
+        </div>
       </div>
-      <div class="project">
+
+      <div class="paper">
         <div>
-          <div class="project-tag">AI & research tools</div>
-          <div class="project-name">LabMind</div>
-          <div class="project-desc">An experimental tool that helps researchers explore literature connections and surface non-obvious links between papers across fields.</div>
+          <div class="paper-journal">MNRAS · 539, 1269 · 2025MNRAS.539.1269B</div>
+          <div class="paper-title">AMOEBA: an AGN Model of Optical Emissions Beyond steady-state Accretion discs</div>
+          <div class="paper-authors">
+            Best, H. J., O'Dowd, M., Fagin, J., <strong>Chan, J. H.-H.</strong>, Ierace, B.
+          </div>
         </div>
-        <div class="project-status status-ongoing">Ongoing</div>
-      </div>
-      <div class="project">
-        <div>
-          <div class="project-tag">Science communication</div>
-          <div class="project-name">Signal / Noise</div>
-          <div class="project-desc">A forthcoming zine series that distils frontier science into honest, jargon-free writing for curious non-experts.</div>
+        <div class="paper-meta">
+          <span class="paper-year">2025</span>
+          <span class="paper-citations">6 citations</span>
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025MNRAS.539.1269B" target="_blank">ADS →</a>
         </div>
-        <div class="project-status status-upcoming">Upcoming</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -589,8 +548,13 @@
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-logo">FUTURELENS</div>
-      <div class="footer-copy">© 2025 FutureLens Science Group</div>
+      <div class="footer-logo">FutureLens</div>
+      <div class="footer-right">
+        <a href="https://www.schmidtsciences.org/profile-2025/decoding-the-universes-tangled-signals/" target="_blank" class="footer-funded">
+          Funded by Schmidt Sciences Foundation
+        </a>
+        <div class="footer-copy">New York · Montréal · © 2025 FutureLens Collaboration</div>
+      </div>
     </div>
   </div>
 </footer>
