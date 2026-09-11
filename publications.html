@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Publications — FutureLens</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #000; --bg2: #080808; --bg3: #101010;
+      --border: #1e1e1e; --accent: #fff; --muted: #555; --mid: #888;
+      --mono: 'Space Mono', monospace; --sans: 'Exo 2', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--accent); font-family: var(--sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+    @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+    .scanline { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(transparent, rgba(255,255,255,0.03), transparent); animation: scanline 10s linear infinite; pointer-events: none; z-index: 0; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 60px; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--sans); font-size: 12px; font-weight: 200; letter-spacing: 0.38em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--accent); }
+    section { position: relative; z-index: 1; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 40px; }
+    .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; }
+    .section-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--border); }
+    h2 { font-family: var(--sans); font-size: clamp(22px, 3vw, 32px); font-weight: 200; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.25; margin-bottom: 16px; }
+
+    #pubs { padding: 120px 0 80px; }
+
+    .topic-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border-left: 2px solid var(--border); padding-left: 12px; margin: 40px 0 1px; }
+    .topic-label:first-of-type { margin-top: 0; }
+
+    .papers-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .paper { background: var(--bg2); padding: 14px 24px; display: grid; grid-template-columns: 56px 1fr auto; gap: 20px; align-items: center; transition: background 0.2s; }
+    .paper:hover { background: var(--bg3); }
+    .paper-year { font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
+    .paper-title { font-family: var(--sans); font-size: 13px; font-weight: 400; color: var(--accent); line-height: 1.4; margin-bottom: 3px; }
+    .paper-journal { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .paper-authors { font-size: 11px; color: #444; line-height: 1.4; }
+    .paper-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .paper-citations { font-family: var(--mono); font-size: 9px; color: var(--muted); white-space: nowrap; }
+    .paper-link { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); border: 1px solid var(--border); padding: 3px 9px; text-decoration: none; white-space: nowrap; transition: border-color 0.2s, color 0.2s; }
+    .paper-link:hover { border-color: #555; color: var(--accent); }
+
+    footer { border-top: 1px solid var(--border); padding: 36px 0; position: relative; z-index: 1; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: var(--sans); font-size: 11px; font-weight: 200; letter-spacing: 0.32em; text-transform: uppercase; color: var(--mid); }
+    .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .footer-funded { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.08em; text-decoration: none; }
+    .footer-funded:hover { color: var(--mid); }
+    .footer-copy { font-family: var(--mono); font-size: 9px; color: #2a2a2a; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; } nav ul { gap: 18px; } .container { padding: 0 20px; }
+      .paper { grid-template-columns: 40px 1fr; gap: 12px; }
+      .paper-meta { grid-column: 2; flex-direction: row; align-items: flex-start; flex-wrap: wrap; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-right { align-items: center; }
+    }
+    @media (prefers-reduced-motion: reduce) { .scanline { display: none; } * { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">FutureLens</a>
+  <ul>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#team">People</a></li>
+    <li><a href="index.html#papers">Research</a></li>
+    <li><a href="publications.html" class="active">Publications</a></li>
+  </ul>
+</nav>
+
+<section id="pubs">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Publications</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 style="margin-bottom:8px">All publications.</h2>
+    <p style="color:var(--muted); font-size:13px; font-family:var(--mono); letter-spacing:0.06em; margin-bottom:52px;">
+      Papers submitted or published by the FutureLens collaboration.
+    </p>
+
+    <!-- QUASAR & ACCRETION DISK -->
+    <div class="topic-label">Quasar structure &amp; accretion disk</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Reverberation Mapping of Lamppost and Wind Structures in Accretion Thin Disks</div>
+          <div class="paper-journal">Astrophysical Journal · 978, 54</div>
+          <div class="paper-authors">J. H.-H. Chan, J. Fagin, H. Best, M. J. O'Dowd</div>
+        </div>
+        <div class="paper-meta">          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...978...54C" target="_blank">ADS →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Joint Modeling of Quasar Variability and Accretion Disk Reprocessing Using Latent Stochastic Differential Equations</div>
+          <div class="paper-journal">Astrophysical Journal · 988, 59</div>
+          <div class="paper-authors">J. Fagin, J. H.-H. Chan, H. Best, M. O'Dowd, K. E. S. Ford, M. J. Graham, J. W. Park, V. A. Villar</div>
+        </div>
+        <div class="paper-meta">          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...988...59F" target="_blank">ADS →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">AMOEBA: An AGN Model of Optical Emissions Beyond Steady-State Accretion Discs</div>
+          <div class="paper-journal">MNRAS · 539, 1269</div>
+          <div class="paper-authors">H. Best, M. O'Dowd, J. Fagin, J. H.-H. Chan, B. Ierace</div>
+        </div>
+        <div class="paper-meta">          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025MNRAS.539.1269B" target="_blank">ADS →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Predicting High-magnification Events in Microlensed Quasars in the Era of LSST Using Recurrent Neural Networks</div>
+          <div class="paper-journal">Astrophysical Journal · 981, 61</div>
+          <div class="paper-authors">J. Fagin, E. Paic, F. Neira, H. Best, G. Vernardos, D. Sluse, T. Anguita, M. O'Dowd, M. Millon</div>
+        </div>
+        <div class="paper-meta">          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...981...61F" target="_blank">ADS →</a>
+        </div>
+      </div>
+
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Evolution of LISA Observables for Binary Black Holes Lensed by an SMBH</div>
+          <div class="paper-journal">Astrophysical Journal · submitted 2025</div>
+          <div class="paper-authors">J. Postiglione, J. H.-H. Chan, J. Fagin, M. O'Dowd et al.</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2502.10591" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2024</div>
+        <div>
+          <div class="paper-title">Latent Stochastic Differential Equations for Modeling Quasar Variability and Inferring Black Hole Properties</div>
+          <div class="paper-journal">Astrophysical Journal · 965, 104</div>
+          <div class="paper-authors">J. Fagin, J. W. Park, H. Best, J. H.-H. Chan, K. E. S. Ford, M. J. Graham, V. A. Villar, S. Ho, M. O'Dowd</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2024ApJ...965..104F" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2304.04277" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2024</div>
+        <div>
+          <div class="paper-title">Resolving the Vicinity of Supermassive Black Holes with Gravitational Microlensing</div>
+          <div class="paper-journal">MNRAS · 531, 1095</div>
+          <div class="paper-authors">H. Best, J. Fagin, G. Vernardos, M. O'Dowd</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2024MNRAS.531.1095B" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2210.10500" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GRAVITATIONAL LENSING & DARK MATTER -->
+    <div class="topic-label">Gravitational lensing, dark matter &amp; cosmology</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2026</div>
+        <div>
+          <div class="paper-title">The Stellar Velocity Anisotropy of Strong Lensing Massive Elliptical Galaxies and Its Role in the Inference of the Hubble Parameter H₀ Using Spatially Resolved Kinematics</div>
+          <div class="paper-journal">Astrophysical Journal · 1000, 264</div>
+          <div class="paper-authors">V. Verma, Q. Minor</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2026ApJ..1000..264V" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2602.07159" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">High Significance Detection of the Dark Substructure in Gravitational Lens SDSS J0946+1006 by Image Pixel Supersampling</div>
+          <div class="paper-journal">Astrophysical Journal · 981, 2</div>
+          <div class="paper-authors">Q. E. Minor</div>
+        </div>
+        <div class="paper-meta">          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...981....2M" target="_blank">ADS →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Robustness of Neural Ratio and Posterior Estimators to Distributional Shifts for Population-Level Dark Matter Analysis in Strong Gravitational Lensing</div>
+          <div class="paper-journal">Astrophysical Journal · 989, 226</div>
+          <div class="paper-authors">A. Filipp, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...989..226F" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2411.05905" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2026</div>
+        <div>
+          <div class="paper-title">LSST Strong Lensing Systems Dark Matter Sensitivity Analysis with Neural Ratio Estimators</div>
+          <div class="paper-journal">Submitted to ApJ · arXiv:2604.07438</div>
+          <div class="paper-authors">A. Filipp, Y. Hezaveh, L. Perreault-Levasseur, D. Gilman, LSST Dark Energy Science Collaboration</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2604.07438" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Mind the Information Gap: Unveiling Detailed Morphologies of z ∼ 0.5–1.0 Galaxies with SLACS Strong Lenses and Data-Driven Analysis</div>
+          <div class="paper-journal">Submitted to ApJ · arXiv:2511.19595</div>
+          <div class="paper-authors">R. Legin, C. Stone, A. Adam, G. M. Barco, A. Coogan, N. Malkin, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2511.19595" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Causal Discovery in Astrophysics: Unraveling Supermassive Black Hole and Galaxy Coevolution</div>
+          <div class="paper-journal">Astrophysical Journal · 979, 212</div>
+          <div class="paper-authors">Z. Jin, M. Pasquato, B. L. Davis et al., L. Perreault-Levasseur, Y. Bengio, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...979..212J" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2410.00965" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GALAXY MORPHOLOGY & IMAGING -->
+    <div class="topic-label">Galaxy morphology &amp; imaging</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Echoes in the Noise: Posterior Samples of Faint Galaxy Surface Brightness Profiles with Score-Based Likelihoods and Priors</div>
+          <div class="paper-journal">Astronomical Journal · 169, 254</div>
+          <div class="paper-authors">A. Adam, C. Stone, C. Bottrell, R. Legin, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025AJ....169..254A" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2311.18002" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Pixellated Posterior Sampling of Point Spread Functions in Astronomical Images</div>
+          <div class="paper-journal">Submitted to ApJ · arXiv:2511.19594</div>
+          <div class="paper-authors">C. Stone, R. Legin, A. Adam, N. Malkin, G. M. Barco, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2511.19594" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MACHINE LEARNING METHODS -->
+    <div class="topic-label">Machine learning methods</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Tackling the Problem of Distributional Shifts: Correcting Misspecified, High-Dimensional Data-Driven Priors for Inverse Problems</div>
+          <div class="paper-journal">Astrophysical Journal · 980, 108</div>
+          <div class="paper-authors">G. M. Barco, A. Adam, C. J. Stone, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025ApJ...980..108B" target="_blank">ADS →</a>
+          <a class="paper-link" href="https://arxiv.org/abs/2407.17667" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">PQMass: Probabilistic Assessment of the Quality of Generative Models using Probability Mass Estimation</div>
+          <div class="paper-journal">ICLR 2025</div>
+          <div class="paper-authors">P. Lemos, S. Sharief, N. Malkin, S. Salhi, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2402.04355" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2026</div>
+        <div>
+          <div class="paper-title">MIRA: A Score for Conditional Distribution Accuracy and Model Comparison</div>
+          <div class="paper-journal">ICML 2026 · Spotlight Paper</div>
+          <div class="paper-authors">S. Sharief, J. Zeghal, G. M. Barco, P. Lemos, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2605.02014" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Recursive Structure Discovery as an Inductive Bias for Symbolic Regression</div>
+          <div class="paper-journal">Submitted to ICLR 2026</div>
+          <div class="paper-authors">W. Tenachi, R. Ibata, A. M. I. Giménez, Y. Hezaveh, L. Perreault-Levasseur, P.-L. Bacon</div>
+        </div>
+                <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2511.04792" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Bridging Simulators with Conditional Optimal Transport</div>
+          <div class="paper-journal">ML4Astro at ICML 2025</div>
+          <div class="paper-authors">J. Zeghal, B. Remy, Y. Hezaveh, F. Lanusse, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2510.24631" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Solving Bayesian Inverse Problems with Diffusion Priors and Off-Policy RL</div>
+          <div class="paper-journal">ICLR DeLTa Workshop 2025</div>
+          <div class="paper-authors">L. Scimeca et al., A. Adam, Y. Hezaveh, L. Perreault-Levasseur, Y. Bengio, N. Malkin</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2503.09746" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Physics-Guided Symbolic Regression through Recursive Structure Discovery</div>
+          <div class="paper-journal">ML4Astro at ICML 2025</div>
+          <div class="paper-authors">W. Tenachi, R. Ibata, A. M. I. Giménez, Y. Hezaveh, L. Perreault-Levasseur, P.-L. Bacon</div>
+        </div>
+        <div class="paper-meta">
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Addressing Misspecified Physical Models: Correcting Underspecified Lens Convergence Models via Data-Driven Updates</div>
+          <div class="paper-journal">ML4Astro at ICML 2025</div>
+          <div class="paper-authors">N. Payot, G. M. Barco, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Pokie: Posterior Accuracy and Model Comparison</div>
+          <div class="paper-journal">NeurIPS FPI Workshop &amp; ML4Astro at ICML 2025</div>
+          <div class="paper-authors">S. Sharief, J. Zeghal, G. M. Barco, P. Lemos, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://openreview.net/forum?id=KhdHnIwNIo" target="_blank">OpenReview →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Predicting the Subhalo Mass Functions in Simulations from Galaxy Images</div>
+          <div class="paper-journal">ML4Astro at ICML 2025</div>
+          <div class="paper-authors">A. Filipp, T. Nguyen, L. Perreault-Levasseur, J. Rose, C. Lovell, N. Payot, F. Villaescusa-Navarro, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2510.14766" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">A Fast Generative Framework for High-Dimensional Posterior Sampling: Application to CMB Delensing</div>
+          <div class="paper-journal">ML4Astro at ICML 2025</div>
+          <div class="paper-authors">H. Sotoudeh, P. Lemos, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2603.04535" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TOOLS & SOFTWARE -->
+    <div class="topic-label">Tools &amp; software</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">caskade: Building Pythonic Scientific Simulators</div>
+          <div class="paper-journal">Journal of Open Source Software · 10, 8786</div>
+          <div class="paper-authors">C. Stone, A. Adam, A. Coogan, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://doi.org/10.21105/joss.08786" target="_blank">JOSS →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- WORKSHOP PAPERS -->
+    <div class="topic-label">Workshop papers</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Transformer Embeddings for Fast Microlensing Inference</div>
+          <div class="paper-journal">NeurIPS ML4PS Workshop 2025</div>
+          <div class="paper-authors">N. Smyth, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2512.11687" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">High-Fidelity Reconstructions of Strong Lenses in the Data-Driven Generative Modeling Era</div>
+          <div class="paper-journal">NeurIPS ML4PS Workshop 2025</div>
+          <div class="paper-authors">R. Legin, C. Stone, A. Adam, G. M. Barco, L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Blind Strong Gravitational Lensing Inversion: Joint Inference of Source and Lens Mass with Score-Based Models</div>
+          <div class="paper-journal">NeurIPS ML4PS Workshop &amp; ML4Astro at ICML 2025</div>
+          <div class="paper-authors">G. M. Barco, R. Legin, C. Stone, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2511.04792" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Inference of Star Formation and Metallicity Histories from Galaxy Spectra with Score-Based Models</div>
+          <div class="paper-journal">NeurIPS ML4PS Workshop 2025</div>
+          <div class="paper-authors">S. Perry-Fagant, C. Stone, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Neural Deprojection of Galaxy Stellar Mass Profiles</div>
+          <div class="paper-journal">NeurIPS ML4PS Workshop 2025</div>
+          <div class="paper-authors">M. J. Yantovski-Barth, H. Zhang, N. Smyth, C. Stone, Y. Hezaveh, L. Perreault-Levasseur, M. Bureau</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2511.20746" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ANCILLARY -->
+    <div class="topic-label">Ancillary publications</div>
+    <div class="papers-list">
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Accelerating Lensed Quasar Discovery and Modeling with Physics-Informed Variational Autoencoders</div>
+          <div class="paper-journal">Astronomy &amp; Astrophysics · 694, A227</div>
+          <div class="paper-authors">I. T. Andika, S. Schuldt, S. H. Suyu et al., J. H.-H. Chan</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://www.aanda.org/articles/aa/full_html/2025/02/aa52188-24/aa52188-24.html" target="_blank">A&amp;A →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">TDCOSMO-XVII. New Time Delays in 22 Lensed Quasars from Optical Monitoring</div>
+          <div class="paper-journal">Astronomy &amp; Astrophysics · 697, A139</div>
+          <div class="paper-authors">F. Dux, M. Millon, A. Galan et al., J. H.-H. Chan</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://ui.adsabs.harvard.edu/abs/2025A%26A...697A.139D" target="_blank">ADS →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">IRIS: A Bayesian Approach for Image Reconstruction in Radio Interferometry with Score-Based Priors</div>
+          <div class="paper-journal">Submitted to ApJ</div>
+          <div class="paper-authors">N. Dia, M. J. Yantovski-Barth, A. Adam et al., L. Perreault-Levasseur, Y. Hezaveh</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2501.02473" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">The Spatially-Resolved Effect of Mergers on the Stellar Assembly of MaNGA Galaxies</div>
+          <div class="paper-journal">Astronomy &amp; Astrophysics · accepted</div>
+          <div class="paper-authors">E. Angeloudi, M. Huertas-Company, J. Falcón-Barroso, L. Perreault-Levasseur, A. Adam</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2509.25340" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Massive Extremely High-Velocity Outflow in the Quasar J164653.72+243942.2</div>
+          <div class="paper-journal">Astrophysical Journal · 990, 152</div>
+          <div class="paper-authors">P. Rodríguez Hidalgo et al., L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2508.14221" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Field-Level Comparison and Robustness Analysis of Cosmological N-body Simulations</div>
+          <div class="paper-journal">Astrophysical Journal · 989, 207</div>
+          <div class="paper-authors">A. Bayer, F. Villanueva-Navarro, S. Sharief et al., L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2505.13620" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Galaxy Cluster Characterization with Machine Learning Techniques</div>
+          <div class="paper-journal">Astrophysical Journal · 986, 24</div>
+          <div class="paper-authors">M. Sadikov, J. Hlavacek-Larrondo, L. Perreault-Levasseur et al.</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2501.04081" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Gravitational-Wave Parameter Estimation in Non-Gaussian Noise Using Score-Based Likelihood Characterization</div>
+          <div class="paper-journal">Astrophysical Journal Letters · 985, L46</div>
+          <div class="paper-authors">R. Legin, M. Isi, K. W. K. Wong, Y. Hezaveh, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2410.19956" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Deconvolving X-ray Galaxy Cluster Spectra Using a Recurrent Inference Machine</div>
+          <div class="paper-journal">Astronomical Journal · 169, 268</div>
+          <div class="paper-authors">C. Rhea, J. Hlavacek-Larrondo, A. Adam, R. Kraft, A. Bogdan, L. Perreault-Levasseur et al.</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2409.10711" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-year">2025</div>
+        <div>
+          <div class="paper-title">Using Neural Networks to Automate the Identification of Brightest Cluster Galaxies in Large Surveys</div>
+          <div class="paper-journal">Astrophysical Journal · 981, 117</div>
+          <div class="paper-authors">P. Janulewicz, T. Webb, L. Perreault-Levasseur</div>
+        </div>
+        <div class="paper-meta">
+          <a class="paper-link" href="https://arxiv.org/abs/2502.00104" target="_blank">arXiv →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">FutureLens</div>
+      <div class="footer-right">
+        <a href="https://www.schmidtsciences.org/profile-2025/decoding-the-universes-tangled-signals/" target="_blank" class="footer-funded">Funded by Schmidt Sciences Foundation</a>
+        <div class="footer-copy">New York · Montréal · © 2025 FutureLens Collaboration</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
