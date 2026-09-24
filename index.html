@@ -83,6 +83,12 @@
       line-height: 1.25; margin-bottom: 16px;
     }
 
+    h3 {
+      font-family: var(--sans); font-size: clamp(18px, 3vw, 28px);
+      font-weight: 400; letter-spacing: 0.10em;
+      line-height: 1.25; margin-bottom: 16px;
+    }
+
     /* HERO */
     #hero {
       min-height: 100vh; display: flex; align-items: center; padding-top: 60px;
@@ -321,7 +327,7 @@
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#team">People</a></li>
-    <li><a href="#papers">Research</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="publications.html">Publications</a></li>
   </ul>
 </nav>
@@ -332,9 +338,9 @@
     <div class="hero-inner">
       <img src="logo.jpeg" alt="FutureLens Logo" class="hero-logo"/>
       <h1>FutureLens</h1>
-      <div class="hero-tagline">Seeing what comes next.</div>
+      <!-- <div class="hero-tagline">Looking beyond</div> -->
       <p class="hero-sub">
-        FutureLens is a research collaboration studying the universe in gravitational lensing systems using machine learning.
+        FutureLens is a research collaboration exploring the universe through gravitational lensing and machine learning techniques.
       </p>
       <a href="#about" class="hero-cta">Explore our work →</a>
     </div>
@@ -350,10 +356,10 @@
     </div>
     <div class="about-grid">
       <div>
-        <h2>The information is there.<br>We figure out how to pull it out.</h2>
+        <h2>Disentangling complex information from the cosmos</h2>
         <div class="about-body">
-          <p>Somewhere in the distant universe, a supermassive black hole blazes with enough energy to outshine its entire host galaxy. Between that quasar and Earth, a massive galaxy bends spacetime — a gravitational lens that splits the quasar's light into multiple images, each flickering with signals about dark matter, black hole structure, and the expansion history of the universe.</p>
-          <p>The problem is extracting it. FutureLens is a <a href="https://www.schmidtsciences.org/profile-2025/decoding-the-universes-tangled-signals/" target="_blank" style="color:var(--mid); text-decoration:none; border-bottom:1px solid #333;">Schmidt Sciences</a>-funded collaboration building the machine learning infrastructure to decode these tangled signals at scale — ahead of the Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST).</p>
+          <p>Gravitational lensing offers a powerful probe into some of the most distant and hidden parts of our universe. Lensing occurs when a massive object curves spacetime, thereby bending the path of light traveling around it. We use this phenomenon to probe dark matter, measure the expansion rate of the universe (the Hubble constant), and investigate the properties of high-redshift active galactic nuclei. </p>
+          <p>However, making sense of lensing data is far from easy. Lensed images by themselves give us limited information, the solution space is highly degenerate, and the dataset size is ever-increasing. FutureLens is a <a href="https://www.schmidtsciences.org/profile-2025/decoding-the-universes-tangled-signals/" target="_blank" style="color:var(--mid); text-decoration:none; border-bottom:1px solid #333;">Schmidt Sciences</a>-funded collaboration building the machine learning infrastructure to decode these tangled signals at scale — ahead of the Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST).</p>
           <p>Our team spans New York City and Montréal, combining expertise in astrophysics, Bayesian inference, simulation-based inference, and deep learning.</p>
         </div>
       </div>
@@ -463,12 +469,15 @@
 </section>
 
 <!-- PAPERS -->
-<section id="papers">
+<section id="research">
   <div class="container">
     <div class="section-header">
       <span class="section-tag">Research</span>
       <div class="section-rule"></div>
     </div>
+    <h2>Current research areas</h2>
+    <h3> Strong lensing </h3>
+    <h3> Quasar microlensing </h3>
     <h2 style="margin-bottom:8px">Selected publications.</h2>
     <p style="color:var(--muted); font-size:13px; font-family:var(--mono); letter-spacing:0.06em; margin-bottom:48px;">
       Studying black hole accretion, quasar variability, and disk structure via gravitational lensing and machine learning.
