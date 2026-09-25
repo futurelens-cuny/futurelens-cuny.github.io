@@ -270,6 +270,35 @@
 
     .research-body { color: var(--mid); font-size: 15px; line-height: 1.9; font-weight: 300; }
 
+    .agn-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    }
+
+    .agn-text {
+      min-width: 0;
+    }
+
+    .agn-video {
+      width: 100%;
+    }
+
+    .agn-video video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .agn-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+    }
+
     /* PAPERS */
     #papers { padding: 80px 0; border-top: 1px solid var(--border); }
 
@@ -505,14 +534,24 @@
     </div>
     <h2> Areas of Study </h2>
     <h3> AGN Structure </h3>
+    <div class="research-body agn-content">
+      <div class="agn-text">
+        <p>Active Galactic Nuclei (AGN), commonly known as quasars, are powered by gas accreting onto supermassive black holes. Despite decades of study, their inner geometry remains a mystery — their central engines are too small for any telescope to resolve directly.</p>
+        <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <strong>gravitational microlensing</strong>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
+      </div>
+      <div class="agn-video">
+        <video autoplay muted loop playsinline controls>
+          <source src="AGN_BlackHole_short_1280.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
     <h3> Cosmology </h3>
     <div class="research-body">
-      <p>Though the standard Lambda-CDM model has prevailed for the last two decades, cosmology is still rife with mysteries and seemingly conflicting data. The nature of dark matter and the value of the Hubble constant are two such open questions that strong lensing can address.</p>
-      <p>The Hubble constant can be measured via time-delay cosmography, making use of time delays between images of strongly lensed quasars or supernovae. Likewise, we can learn about the nature of dark matter substructure, via perturbations in lensed images that alert us to the presence of dark matter. This can help us test the predictions of CDM versus other dark matter models.</p>
-      <p> The accuracy of these lensing-based methods is contingent on proper mass modeling of the lens and accounting for systematics/degeneracies in lens modeling as well as kinematics. We create state-of-the-art software and carry out detailed analysis on simulated as well as real observational data in order to mitigate bias and measure these important cosmological values. </p>
+      <p>Though the standard Lambda-CDM model has prevailed for the last two decades, cosmology is still rife with mysteries and seemingly conflicting data. The nature of dark matter and the value of the Hubble constant, the universe's expansion rate, are two such open questions that lensing can address. </p>
+      <p>Measurements of the Hubble constant from the early universe disagree with those from nearby supernovae, and no known systematic error explains the gap. Time-delay cosmography, making use of time delays between images of strongly lensed quasars or supernovae, can offer an independent probe of the Hubble constant. Likewise, we can learn about the nature of dark matter substructure via perturbations in lensed images. This can help us test the predictions of CDM versus other dark matter models.</p>
+      <p>The accuracy of these lensing-based methods is contingent on proper mass modeling of the lens and accounting for systematics/degeneracies in lens & kinematic modeling. We create state-of-the-art software and carry out detailed analyses on simulated and real observational data to mitigate bias and measure these cosmological values. We are also building an end-to-end machine learning pipeline to extract time delays from thousands of lensed quasars in LSST — measuring H₀ with high precision and testing whether the expansion rate has evolved across cosmic time.</p>
     </div>
-    <h3> Gravitational Lensing </h3>
-
 
     <div style="text-align:center; margin-top:40px;">
       <a href="publications.html" style="font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); padding:12px 28px; text-decoration:none; display:inline-block; transition:color 0.2s, border-color 0.2s;">
