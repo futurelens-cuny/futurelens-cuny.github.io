@@ -179,6 +179,15 @@
       height: auto;
     }
 
+    .gif-caption {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #777;
+      text-align: left;
+    }
+
     .about-grid h2 {
       margin-top: 0;
       margin-bottom: 24px;
@@ -189,6 +198,10 @@
       .about-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+      }
+
+      .gif-caption {
+        max-width: 100%;
       }
     }
 
@@ -469,7 +482,7 @@
       <h1>FutureLens</h1>
       <!-- <div class="hero-tagline">Looking beyond</div> -->
       <p class="hero-sub">
-        FutureLens is a research collaboration studying the distant universe via gravitational lensing and machine learning. 
+        We are a research collaboration studying the distant universe via gravitational lensing and machine learning. 
       </p>
       <a href="#about" class="hero-cta">Explore our work →</a>
     </div>
@@ -495,7 +508,10 @@
       </div>
 
       <div class="about-image">
-        <img src="very_colorful_lens.jpg" alt="Lensed arc in field of galaxies">
+        <img src="ESAHubblelensgif.gif" alt="Lensed arc in field of galaxies">
+        <p class="gif-caption">
+          Image Credit: ESA/Hubble
+        </p>
       </div>
     </div>
   </div>
@@ -592,39 +608,38 @@
       <div class="section-rule"></div>
     </div>
     <h2> Areas of Study </h2>
-    <h3> AGN Structure </h3>
-    <div class="research-content">
+    <h3> Cosmology </h3>
+      <div class="research-content">
         <div class="research-text research-body">
-          <p>Active Galactic Nuclei (AGN), commonly known as quasars, are powered by gas accreting onto supermassive black holes. Despite decades of study, their inner geometry remains a mystery — their central engines are too small for any telescope to resolve directly.</p>
-          <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <strong>gravitational microlensing</strong>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
+          <p>One of the biggest open questions in modern cosmology is the Hubble tension: measurements of the universe’s expansion rate (H₀) from the early universe disagree with those from nearby supernovae, and no known systematic error explains the gap.</p>
+          <p>Strong gravitational lensing offers an independent measurement with entirely different systematics. Light from each image of a lensed quasar travels a different path and arrives at a different time. These time delays, combined with a model of the lensing galaxy’s mass, give a direct measurement of H₀.</p>
+          <p>We are building an end-to-end machine learning pipeline to extract time delays from thousands of lensed quasars in LSST — measuring H₀ with high precision and testing whether the expansion rate has evolved across cosmic time.</p>
         </div>
         <div class="research-media">
-          <video autoplay muted loop playsinline controls>
-            <source src="AGN_BlackHole_short_1280.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+          <iframe 
+          width="560" height="315" src="https://www.youtube.com/embed/qNCCDX32XYE?si=nkhv98zvMdCAB4cI" 
+          title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen> 
+          </iframe>
           <p class="video-caption">
-            NASA/Goddard Space Flight Center Conceptual Image Lab 
+            Video Credit: PBS Space Time, © 2026 PBS
           </p>
         </div>
       </div>
-
     <div class="research-content">
       <div class="research-media">
-        <iframe 
-        width="560" height="315" src="https://www.youtube.com/embed/qNCCDX32XYE?si=nkhv98zvMdCAB4cI" 
-        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen> 
-        </iframe>
+        <video autoplay muted loop playsinline controls>
+          <source src="AGN_BlackHole_short_1280.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <p class="video-caption">
-          Video Credit: PBS Space Time, © 2026 PBS
+          NASA/Goddard Space Flight Center Conceptual Image Lab 
         </p>
       </div>
       <div class="research-text research-body">
-        <h3>Cosmology</h3>
-        <p>One of the biggest open questions in modern cosmology is the Hubble tension: measurements of the universe’s expansion rate (H₀) from the early universe disagree with those from nearby supernovae, and no known systematic error explains the gap.</p>
-        <p>Strong gravitational lensing offers an independent measurement with entirely different systematics. Light from each image of a lensed quasar travels a different path and arrives at a different time. These time delays, combined with a model of the lensing galaxy’s mass, give a direct measurement of H₀.</p>
-        <p>We are building an end-to-end machine learning pipeline to extract time delays from thousands of lensed quasars in LSST — measuring H₀ with high precision and testing whether the expansion rate has evolved across cosmic time.</p>
+        <h3> AGN Structure </h3>
+        <p>Active Galactic Nuclei (AGN), commonly known as quasars, are powered by gas accreting onto supermassive black holes. Despite decades of study, their inner geometry remains a mystery — their central engines are too small for any telescope to resolve directly.</p>
+        <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <strong>gravitational microlensing</strong>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
       </div>
     </div>
 
