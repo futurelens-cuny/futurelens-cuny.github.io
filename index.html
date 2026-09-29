@@ -87,6 +87,7 @@
       font-family: var(--sans); font-size: clamp(18px, 3vw, 28px);
       font-weight: 200; letter-spacing: 0.12em;
       line-height: 1.25; margin-bottom: 16px;
+      color: #ffffff;
     }
 
     /* HERO */
@@ -502,13 +503,13 @@
         <h2>Disentangling complex information from the cosmos</h2>
         <div class="about-body">
           <p>Gravitational lensing offers a powerful probe into some of the most distant and hidden parts of our universe. Lensing occurs when a massive object curves spacetime, thereby bending the path of light traveling around it. We can use this phenomenon for a multitude of purposes - like understanding dark matter, measuring the expansion rate of the universe, and investigating the properties of high-redshift active galactic nuclei.</p>
-          <p>However, making sense of lensing data is far from easy. Lensed images by themselves give us limited information, the solution space is highly degenerate, and the dataset size is ever-increasing. FutureLens is a <a href="https://www.schmidtsciences.org/profile-2025/decoding-the-universes-tangled-signals/" target="_blank" style="color:var(--mid); text-decoration:none; border-bottom:1px solid #333;">Schmidt Sciences</a>-funded collaboration building the machine learning infrastructure to decode these complicated signals at scale — ahead of the Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST).</p>
+          <p>However, making sense of lensing data is far from easy. Lensed images by themselves give us limited information, the solution space is highly degenerate, and the dataset size is ever-increasing. FutureLens is a <a href="https://www.schmidtsciences.org/profile-2025/decoding-the-universes-tangled-signals/" target="_blank" style="color:var(--mid); text-decoration:none; border-bottom:1px solid #333;">Schmidt Sciences</a>-funded collaboration building the machine learning infrastructure to decode these complicated signals at scale — ahead of the <a href="https://rubinobservatory.org/" target="_blank" style="color:var(--mid); text-decoration:none; border-bottom:1px solid #333;">Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST)</a>.</p>
           <p>Our team spans New York City and Montréal, combining expertise in astrophysics, Bayesian inference, simulation-based inference, and deep learning.</p>
         </div>
       </div>
 
       <div class="about-image">
-        <img src="ESAHubblelensgif.gif" alt="Lensed arc in field of galaxies">
+        <img src="portrait_ESAHubblelensgif.gif" alt="Lensed arc">
         <p class="gif-caption">
           Image Credit: ESA/Hubble
         </p>
@@ -608,25 +609,12 @@
       <div class="section-rule"></div>
     </div>
     <h2> Areas of Study </h2>
-    <h3> Cosmology </h3>
-      <div class="research-content">
-        <div class="research-text research-body">
-          <p>One of the biggest open questions in modern cosmology is the Hubble tension: measurements of the universe’s expansion rate (H₀) from the early universe disagree with those from nearby supernovae, and no known systematic error explains the gap.</p>
-          <p>Strong gravitational lensing offers an independent measurement with entirely different systematics. Light from each image of a lensed quasar travels a different path and arrives at a different time. These time delays, combined with a model of the lensing galaxy’s mass, give a direct measurement of H₀.</p>
-          <p>We are building an end-to-end machine learning pipeline to extract time delays from thousands of lensed quasars in LSST — measuring H₀ with high precision and testing whether the expansion rate has evolved across cosmic time.</p>
-        </div>
-        <div class="research-media">
-          <iframe 
-          width="560" height="315" src="https://www.youtube.com/embed/qNCCDX32XYE?si=nkhv98zvMdCAB4cI" 
-          title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen> 
-          </iframe>
-          <p class="video-caption">
-            Video Credit: PBS Space Time, © 2026 PBS
-          </p>
-        </div>
-      </div>
+    <h3> AGN Structure </h3>
     <div class="research-content">
+      <div class="research-text research-body">
+        <p>Active Galactic Nuclei (AGN), commonly known as quasars, are powered by gas accreting onto supermassive black holes. Despite decades of study, their inner geometry remains a mystery — their central engines are too small for any telescope to resolve directly.</p>
+        <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <strong>gravitational microlensing</strong>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
+      </div>
       <div class="research-media">
         <video autoplay muted loop playsinline controls>
           <source src="AGN_BlackHole_short_1280.mp4" type="video/mp4">
@@ -636,10 +624,24 @@
           NASA/Goddard Space Flight Center Conceptual Image Lab 
         </p>
       </div>
+    </div>
+    
+    <div class="research-content">
+      <div class="research-media">
+        <iframe 
+        width="560" height="315" src="https://www.youtube.com/embed/qNCCDX32XYE?si=nkhv98zvMdCAB4cI" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen> 
+        </iframe>
+        <p class="video-caption">
+          Video Credit: PBS Space Time, © 2026 PBS
+        </p>
+      </div>
       <div class="research-text research-body">
-        <h3> AGN Structure </h3>
-        <p>Active Galactic Nuclei (AGN), commonly known as quasars, are powered by gas accreting onto supermassive black holes. Despite decades of study, their inner geometry remains a mystery — their central engines are too small for any telescope to resolve directly.</p>
-        <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <strong>gravitational microlensing</strong>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
+        <h3> Cosmology </h3>
+        <p>One of the biggest open questions in modern cosmology is the Hubble tension: measurements of the universe’s expansion rate (H₀) from the early universe disagree with those from nearby supernovae, and no known systematic error explains the gap.</p>
+        <p>Strong gravitational lensing offers an independent measurement with entirely different systematics. Light from each image of a lensed quasar travels a different path and arrives at a different time. These time delays, combined with a model of the lensing galaxy’s mass, give a direct measurement of H₀.</p>
+        <p>We are building an end-to-end machine learning pipeline to extract time delays from thousands of lensed quasars in LSST — measuring H₀ with high precision and testing whether the expansion rate has evolved across cosmic time.</p>
       </div>
     </div>
 
