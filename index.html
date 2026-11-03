@@ -300,6 +300,17 @@
       margin-top: 18px;
     }
 
+    .research-body .research-link {
+      color: #b8b8b8;
+      text-decoration: none;
+      border-bottom: 1px solid #4a4a4a;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .research-body .research-link:hover {
+      color: #f0f0f0;
+      border-color: #b8b8b8;
+    }
+
     /* Two-column layout for each research area */
     .research-content {
       display: grid;
@@ -576,7 +587,7 @@
         <div class="member-avatar"><img src="photo_josh.jpg" alt="Josh Fagin"/></div>
         <div class="member-name">Josh Fagin</div>
         <div class="member-role">Postdoc Fellow</div>
-        <div class="member-inst">CUNY</div>
+        <div class="member-inst">Stony Brook University</div>
         <span class="member-hub">New York</span>
         <a href="https://jfagin.github.io/" class="member-link" target="_blank">website →</a>
       </div>
@@ -614,10 +625,10 @@
     <div class="research-content">
       <div class="research-text research-body">
         <p>Active Galactic Nuclei (AGN), commonly known as quasars, are powered by gas accreting onto supermassive black holes. Despite decades of study, their inner geometry remains a mystery — their central engines are too small for any telescope to resolve directly.</p>
-        <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <strong>gravitational microlensing</strong>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
+        <p>We study their structure using two complementary techniques: <strong>reverberation mapping</strong>, which measures how light echoes travel across the accretion disk, and <a class="research-link" href="https://jameshhchan.github.io/quasar-microlensing/" target="_blank" rel="noopener noreferrer"><strong>gravitational microlensing</strong></a>, where stars in a foreground galaxy act as natural magnifying glasses, amplifying different parts of the disk and revealing its size and temperature profile.</p>
       </div>
       <div class="research-media">
-        <video autoplay muted loop playsinline controls>
+        <video autoplay muted loop playsinline controls aria-label="Looping visualization of an active galactic nucleus">
           <source src="AGN_BlackHole_short_1280.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
